@@ -42,7 +42,10 @@ class Block {
             let auxVariable = this.hash;
                                             
             // Recalculate the hash of the Block
-            let newHash = SHA256(JSON.stringify(this));
+            self.hash = null;
+            const newHash = SHA256(JSON.stringify(self)).toString();
+            self.hash = currentHash;
+
             // Comparing if the hashes changed
             if( newHash == auxVariable )
             {
@@ -80,7 +83,7 @@ class Block {
         }
         else
         {
-            reject(Error("Not the genesis block"));
+            reject(Error("It is a genesis block"));
         }
     }
 
